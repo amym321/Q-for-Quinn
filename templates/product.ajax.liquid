@@ -1,0 +1,20 @@
+{% comment %}
+  Exact same as normal product template but without unneeded markup
+  that slows down ajax loading
+{% endcomment %}
+
+{% layout none %}
+{% section 'product-template' %}
+
+<script>
+  // Override default values of shop.strings for each template.
+  // Alternate product templates can change values of
+  // add to cart button, sold out, and unavailable states here.
+  theme.productStrings = {
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }},
+    unavailable: {{ 'products.product.unavailable' | t | json }}
+  };
+</script>
+
+<script src="https://widget.sezzle.com/v1/javascript/price-widget?uuid=0d3fcabe-08ee-4173-80db-00863985e9a2"></script>

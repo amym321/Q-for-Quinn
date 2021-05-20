@@ -1,0 +1,23 @@
+<script>
+  if(typeof(Spurit) === 'undefined'){
+    var Spurit = {};
+  }
+  if(!Spurit.CountdownTimer){
+    Spurit.CountdownTimer = {};
+  }
+  if(!Spurit.CountdownTimer.snippet){
+    Spurit.CountdownTimer.snippet = {};
+  }
+  Spurit.CountdownTimer.snippet.shopHash = '05876642ae074862ba981d2e9171f31e';
+
+  {% assign page = template | split: '.' | first %}
+  {% if page == 'product' and product and product.id %}
+    Spurit.CountdownTimer.snippet.productId = {{ product.id }};
+  {% endif %}
+  {% if page == 'collection' and collection and collection.id %}
+  Spurit.CountdownTimer.snippet.collectionId = {{ collection.id }};
+  {% endif %}
+</script>
+
+<script src="https://s3.amazonaws.com/shopify-apps/timer-app/common.js"></script>
+<link href="https://s3.amazonaws.com/shopify-apps/timer-app/common.css" rel="stylesheet" type="text/css" media="all">
