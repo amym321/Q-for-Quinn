@@ -1,51 +1,52 @@
+{%- liquid
+  case section.settings.grid
+    when '1'
+      assign grid_item_width = ''
+    when '2'
+      assign grid_item_width = 'medium-up--one-half'
+    when '3'
+      assign grid_item_width = 'small--one-half medium-up--one-third'
+    when '4'
+      assign grid_item_width = 'small--one-half medium-up--one-quarter'
+    when '5'
+      assign grid_item_width = 'small--one-half medium-up--one-fifth'
+  endcase -%
+-%}
 <div class="page-width page-content">
 
-  {%- include 'breadcrumbs' -%}
+  {%- render 'breadcrumbs' -%}
 
-  {% if section.settings.title_enable %}
+  {%- if section.settings.title_enable -%}
     <header class="section-header">
       <h1 class="section-header__title">{{ 'collections.general.catalog_title' | t }}</h1>
     </header>
-  {% endif %}
-
-  {%- assign blocks = section.blocks | sort: 'collection.all_products_count' -%}
-
-  {% case section.settings.grid %}
-    {% when '1' %}
-      {%- assign grid_item_width = '' -%}
-    {% when '2' %}
-      {%- assign grid_item_width = 'medium-up--one-half' -%}
-    {% when '3' %}
-      {%- assign grid_item_width = 'small--one-half medium-up--one-third' -%}
-    {% when '4' %}
-      {%- assign grid_item_width = 'small--one-half medium-up--one-quarter' -%}
-    {% when '5' %}
-      {%- assign grid_item_width = 'small--one-half medium-up--one-fifth' -%}
-  {% endcase %}
+  {%- endif -%}
 
   <div class="grid grid--uniform{% unless settings.collection_grid_gutter %} grid--no-gutters{% endunless %}">
-    {% if section.settings.display_type == 'all' %}
-      {% case section.settings.sort %}
-        {% when 'products_high' or 'products_low' %}
-          {%- assign collections = collections | sort: 'all_products_count' -%}
-        {% when 'date' or 'date_reversed' %}
-          {%- assign collections = collections | sort: 'published_at' -%}
-      {% endcase %}
-      {% if section.settings.sort == 'products_low' or section.settings.sort == 'date' or section.settings.sort == 'alphabetical' %}
-        {% for collection in collections %}
-          {% include 'collection-grid-item' %}
-        {% endfor %}
-      {% else %}
-        {% for collection in collections reversed %}
-          {% include 'collection-grid-item' %}
-        {% endfor %}
-      {% endif %}
-    {% else %}
-      {% for block in section.blocks %}
+    {%- if section.settings.display_type == 'all' -%}
+      {%- liquid
+        case section.settings.sort
+          when 'products_high' or 'products_low'
+            assign collections = collections | sort: 'all_products_count'
+          when 'date' or 'date_reversed'
+            assign collections = collections | sort: 'published_at'
+        endcase
+      -%}
+      {%- if section.settings.sort == 'products_low' or section.settings.sort == 'date' or section.settings.sort == 'alphabetical' -%}
+        {%- for collection in collections -%}
+          {%- render 'collection-grid-item', collection: collection, grid_item_width: grid_item_width -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for collection in collections reversed -%}
+          {%- render 'collection-grid-item', collection: collection, grid_item_width: grid_item_width -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- else -%}
+      {%- for block in section.blocks -%}
         {%- assign collection = collections[block.settings.collection] -%}
-        {% include 'collection-grid-item' %}
-      {% endfor %}
-    {% endif %}
+        {%- render 'collection-grid-item', collection: collection, grid_item_width: grid_item_width -%}
+      {%- endfor -%}
+    {%- endif -%}
   </div>
 </div>
 

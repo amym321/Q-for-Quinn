@@ -24,7 +24,7 @@
                         class="grid__image-ratio grid__image-ratio--object grid__image-ratio--{% endraw %}{{ settings.predictive_image_size }}{% raw %}">
                         <div class="predictive__image-wrap">
                           {{#if image }}
-                            <img class="image-fit lazyload"
+                            <img class="lazyload"
                                 data-src="{{image}}"
                                 data-widths="[180, 360, 540, 720]"
                                 data-sizes="auto">
@@ -56,16 +56,33 @@
         </div>
       {{/if}}
 
+      {{#if collections}}
+        <div data-type-collections>
+          <p class="h6 predictive__label">{% endraw %}{{ 'general.search.collections' | t }}{% raw %}</p>
+          <ul class="no-bullets">
+            {{#collections}}
+              <li>
+                <a href="{{url}}">
+                  {{title}}
+                </a>
+              </li>
+            {{/collections}}
+          </ul>
+        </div>
+      {{/if}}
+
       {{#if pages}}
         <div data-type-pages>
           <p class="h6 predictive__label">{% endraw %}{{ 'general.search.pages' | t }}{% raw %}</p>
-          {{#pages}}
-            <div>
-              <a href="{{url}}">
-                {{title}}
-              </a>
-            </div>
-          {{/pages}}
+          <ul class="no-bullets">
+            {{#pages}}
+              <li>
+                <a href="{{url}}">
+                  {{title}}
+                </a>
+              </li>
+            {{/pages}}
+          </ul>
         </div>
       {{/if}}
 
@@ -82,7 +99,7 @@
                       class="grid__image-ratio grid__image-ratio--object grid__image-ratio--{% endraw %}{{ settings.predictive_image_size }}{% raw %}">
                       <div class="predictive__image-wrap">
                         {{#if image }}
-                          <img class="image-fit lazyload"
+                          <img class="lazyload"
                               data-src="{{image}}"
                               data-widths="[180, 360, 540, 720]"
                               data-sizes="auto">

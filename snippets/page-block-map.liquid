@@ -1,3 +1,16 @@
+{%- liquid
+  assign display_map = false
+  assign onboarding = false
+  assign bg_image = block.settings.background_image
+
+  if block.settings.api_key == blank and bg_image == blank
+    assign onboarding = true
+  endif
+  if block.settings.api_key != blank and block.settings.map_address
+    assign display_map = true
+  endif -
+-%}
+
 <script>
   theme.strings.addressError = {{ 'sections.map.address_error' | t | json }};
   theme.strings.addressNoResults = {{ 'sections.map.address_no_results' | t | json }};
@@ -5,20 +18,9 @@
   theme.strings.authError = {{ 'sections.map.auth_error_html' | t | json }};
 </script>
 
-{%- assign display_map = false -%}
-{%- assign onboarding = false -%}
-{%- assign bg_image = block.settings.background_image -%}
-
-{%- if block.settings.api_key == blank and bg_image == blank -%}
-  {%- assign onboarding = true -%}
-{%- endif -%}
-{%- if block.settings.api_key != blank and block.settings.map_address -%}
-  {%- assign display_map = true -%}
-{%- endif -%}
-
-{% if bg_image.src != blank %}
-  {% unless display_map %}
-    {% style %}
+{%- if bg_image.src != blank -%}
+  {%- unless display_map -%}
+    {%- style -%}
       .map-{{ block.id }} {
         background-size: cover;
         background-position: center;
@@ -31,9 +33,9 @@
           padding-top: {{ 1 | divided_by: bg_image.aspect_ratio | times: 100 }}%;
         }
       }
-    {% endstyle %}
-  {% endunless %}
-{% endif %}
+    {%- endstyle -%}
+  {%- endunless -%}
+{%- endif -%}
 
 <div
   class="map-section"
@@ -41,31 +43,31 @@
   data-section-id="{{ block.id }}"
   data-section-type="map"
   data-aos="map-section__animation">
-  {% if block.settings.title != blank or block.settings.address != blank %}
+  {%- if block.settings.title != blank or block.settings.address != blank -%}
     <div class="map-section__overlay-wrapper">
       <div class="animation-cropper">
         <div class="animation-contents">
           <div class="map-section__overlay">
-            {% if block.settings.map_title != blank %}
+            {%- if block.settings.map_title != blank -%}
               <p class="h3 text-spacing">{{ block.settings.map_title | escape }}</p>
-            {% endif %}
-            {% if block.settings.address != blank %}
+            {%- endif -%}
+            {%- if block.settings.address != blank -%}
               <div class="rte-setting text-spacing">{{ block.settings.address }}</div>
-              {% if block.settings.show_button %}
-                <a href="https://maps.google.com?daddr={{ block.settings.map_address | escape }}" class="btn btn--small" target="_blank">{{ 'sections.map.get_directions' | t }}</a>
-              {% endif %}
-            {% endif %}
+              {%- if block.settings.show_button -%}
+                <a href="https://maps.google.com?daddr={{ block.settings.map_address | escape }}" class="btn btn--small" target="_blank" rel="noopener" aria-label="{{ block.settings.map_title }}">{{ 'sections.map.get_directions' | t }}</a>
+              {%- endif -%}
+            {%- endif -%}
           </div>
         </div>
       </div>
     </div>
-  {% endif %}
-  <a class="map-section__link" href="https://www.google.ca/maps/place/{{ block.settings.map_address | escape }}" target="_blank" aria-label="{{ block.settings.map_address | escape }}"></a>
+  {%- endif -%}
+  <a class="map-section__link" href="https://www.google.com/maps/place/{{ block.settings.map_address | escape }}" target="_blank" rel="noopener" aria-label="{{ block.settings.map_address | escape }}"></a>
   {%- if onboarding -%}
     <div class="map-onboarding">
       {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
     </div>
-  {% endif %}
+  {%- endif -%}
   <div
     id="Map-{{ block.id }}"
     data-map

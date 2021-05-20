@@ -31,7 +31,7 @@
                     </div>
                   {{/unless}}
                 {{/if}}
-                <a href="{{ url_formatted }}" class="grid-product__link{{#if sold_out}} grid-product__link--disabled{{/if}}">
+                <a href="{{ url_formatted }}" class="grid-product__link">
                   <div class="grid-product__image-mask">
                     <div class="image-wrap" style="height: 0; padding-bottom: {{ image_aspect_ratio }}%;">
                       <img class="grid-product__image lazyload"
@@ -61,6 +61,12 @@
                         {% endraw %}{{ 'products.general.from_text_html' | t: price: price_min }}{% raw %}
                       {{ else }}
                         {{{ price_formatted }}}
+                      {{/if}}
+
+                      {{#if unit_price}}
+                        <div class="product__unit-price">
+                          {{{ unit_price }}}
+                        </div>
                       {{/if}}
                     </div>
                   </div>

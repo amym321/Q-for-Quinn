@@ -1,26 +1,26 @@
-{% style %}
+{%- style -%}
 .logo-bar--{{ section.id }} {
   opacity: {{ section.settings.logo_opacity | divided_by: 100.0 }};
 }
-{% endstyle %}
+{%- endstyle -%}
 
-{% if section.settings.divider %}<div class="section--divider">{% endif %}
+{%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
 
 <div class="page-width" data-aos="logo__animation">
-  {% if section.settings.title != blank %}
+  {%- if section.settings.title != blank -%}
     <div class="section-header">
       <h2 class="section-header__title">{{ section.settings.title | escape }}</h2>
     </div>
-  {% endif %}
+  {%- endif -%}
 
-  {% if section.blocks.size > 0 %}
+  {%- if section.blocks.size > 0 -%}
     <div class="logo-bar logo-bar--{{ section.id }}">
-      {% for block in section.blocks %}
+      {%- for block in section.blocks -%}
         <div class="logo-bar__item" {{ block.shopify_attributes }}>
-          {% if block.settings.link != blank %}
+          {%- if block.settings.link != blank -%}
             <a href="{{ block.settings.link }}" class="logo-bar__link">
-          {% endif %}
-          {% if block.settings.image != blank %}
+          {%- endif -%}
+          {%- if block.settings.image != blank -%}
             {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
             <img class="logo-bar__image lazyload"
                 data-src="{{ img_url }}"
@@ -28,19 +28,19 @@
                 data-aspectratio="{{ block.settings.image.aspect_ratio }}"
                 data-sizes="auto"
                 alt="{{ block.settings.image.alt }}">
-          {% else %}
+          {%- else -%}
             {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
-          {% endif %}
-          {% if block.settings.link != blank %}
+          {%- endif -%}
+          {%- if block.settings.link != blank -%}
             </a>
-          {% endif %}
+          {%- endif -%}
         </div>
-      {% endfor %}
+      {%- endfor -%}
     </div>
-  {% endif %}
+  {%- endif -%}
 </div>
 
-{% if section.settings.divider %}</div>{% endif %}
+{%- if section.settings.divider -%}</div>{%- endif -%}
 
 {% schema %}
   {

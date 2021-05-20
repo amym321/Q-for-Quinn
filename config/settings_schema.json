@@ -3,7 +3,7 @@
     "name": "theme_info",
     "theme_name": "Impulse",
     "theme_author": "Archetype Themes",
-    "theme_version": "2.5.1",
+    "theme_version": "4.0.2",
     "theme_documentation_url": "https://archetypethemes.co/blogs/impulse",
     "theme_support_url": "https://archetypethemes.co/pages/support#impulse"
   },
@@ -54,13 +54,19 @@
         "type": "color",
         "id": "color_button_text",
         "label": "Button text",
-        "default": "#fff"
+        "default": "#ffffff"
       },
       {
         "type": "color",
         "id": "color_sale_tag",
         "label": "Sale tags",
         "default": "#1c1d1d"
+      },
+      {
+        "type": "color",
+        "id": "color_sale_tag_text",
+        "label": "Sale tag text",
+        "default": "#ffffff"
       },
       {
         "type": "color",
@@ -72,7 +78,7 @@
         "type": "color",
         "id": "color_small_image_bg",
         "label": "Image background",
-        "default": "#fff"
+        "default": "#ffffff"
       },
       {
         "type": "color",
@@ -88,13 +94,13 @@
         "type": "color",
         "id": "color_header",
         "label": "Background",
-        "default": "#fff"
+        "default": "#ffffff"
       },
       {
         "type": "color",
         "id": "color_header_text",
         "label": "Text",
-        "default": "#000"
+        "default": "#000000"
       },
       {
         "type": "color",
@@ -106,7 +112,7 @@
         "type": "color",
         "id": "color_announcement_text",
         "label": "Announcement bar text",
-        "default": "#fff"
+        "default": "#ffffff"
       },
       {
         "type": "header",
@@ -122,7 +128,7 @@
         "type": "color",
         "id": "color_footer_text",
         "label": "Text",
-        "default": "#fff"
+        "default": "#ffffff"
       },
       {
         "type": "header",
@@ -162,7 +168,7 @@
         "type": "color",
         "id": "color_modal_overlays",
         "label": "Overlays",
-        "default": "#000"
+        "default": "#000000"
       },
       {
         "type": "header",
@@ -176,13 +182,13 @@
         "type": "color",
         "id": "color_image_text",
         "label": "Text",
-        "default": "#fff"
+        "default": "#ffffff"
       },
       {
         "type": "color",
         "id": "color_image_overlay",
         "label": "Overlay",
-        "default": "#000"
+        "default": "#000000"
       },
       {
         "type": "range",
@@ -557,8 +563,81 @@
       },
       {
         "type": "checkbox",
+        "id": "product_save_amount",
+        "label": "Show saved amount",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "product_save_type",
+        "label": "Savings display style",
+        "default": "dollar",
+        "options": [
+          {
+            "value": "dollar",
+            "label": "Dollar"
+          },
+          {
+            "value": "percent",
+            "label": "Percent"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
         "id": "vendor_enable",
         "label": "Show vendor"
+      },
+      {
+        "type": "checkbox",
+        "id": "quick_shop_enable",
+        "label": "Enable quick shop feature"
+      },
+      {
+        "type": "text",
+        "id": "quick_shop_text",
+        "label": "Quick shop button text",
+        "default": "Quick view"
+      },
+      {
+        "type": "select",
+        "id": "product_grid_image_size",
+        "label": "Grid image size",
+        "default": "natural",
+        "options": [
+          {
+            "value": "natural",
+            "label": "Natural"
+          },
+          {
+            "value": "square",
+            "label": "Square (1:1)"
+          },
+          {
+            "value": "landscape",
+            "label": "Landscape (4:3)"
+          },
+          {
+            "value": "portrait",
+            "label": "Portrait (2:3)"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "product_grid_image_fill",
+        "label": "Zoom image to fill space",
+        "info": "No effect when grid image size set to 'Natural'"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_hover_image",
+        "label": "Hover to reveal second image",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Product pages"
       },
       {
         "type": "checkbox",
@@ -621,71 +700,14 @@
       },
       {
         "type": "checkbox",
-        "id": "product_save_amount",
-        "label": "Show saved amount",
-        "default": true
-      },
-      {
-        "type": "select",
-        "id": "product_save_type",
-        "label": "Savings display style",
-        "default": "dollar",
-        "options": [
-          {
-            "value": "dollar",
-            "label": "Dollar"
-          },
-          {
-            "value": "percent",
-            "label": "Percent"
-          }
-        ]
+        "id": "surface_pickup_enable",
+        "label": "Enable pickup availability feature",
+        "info": "Learn how to setup this feature [here](https://help.shopify.com/en/manual/shipping/setting-up-and-managing-your-shipping/local-methods/local-pickup)"
       },
       {
         "type": "checkbox",
         "id": "product_zoom_enable",
         "label": "Enable image zoom"
-      },
-      {
-        "type": "checkbox",
-        "id": "quick_shop_enable",
-        "label": "Enable quick shop feature"
-      },
-      {
-        "type": "text",
-        "id": "quick_shop_text",
-        "label": "Quick shop button text",
-        "default": "Quick view"
-      },
-      {
-        "type": "select",
-        "id": "product_grid_image_size",
-        "label": "Grid image size",
-        "default": "natural",
-        "options": [
-          {
-            "value": "natural",
-            "label": "Natural"
-          },
-          {
-            "value": "square",
-            "label": "Square (1:1)"
-          },
-          {
-            "value": "landscape",
-            "label": "Landscape (4:3)"
-          },
-          {
-            "value": "portrait",
-            "label": "Portrait (2:3)"
-          }
-        ]
-      },
-      {
-        "type": "checkbox",
-        "id": "product_hover_image",
-        "label": "Hover to reveal second image",
-        "default": false
       },
       {
         "type": "header",
@@ -718,42 +740,6 @@
           {
             "value": "square",
             "label": "Square"
-          }
-        ]
-      },
-      {
-        "type": "header",
-        "content": "Product videos"
-      },
-      {
-        "type": "paragraph",
-        "content": "Impulse supports .MP4, YouTube and Vimeo product videos through a product image's 'alt' tag. Not all features supported by Vimeo. [Learn more](https://archetypethemes.co/blogs/impulse/how-do-i-add-product-videos)"
-      },
-      {
-        "type": "text",
-        "id": "product_video_width",
-        "label": "Video width",
-        "default": "1280"
-      },
-      {
-        "type": "text",
-        "id": "product_video_height",
-        "label": "Video height",
-        "default": "720"
-      },
-      {
-        "type": "select",
-        "id": "product_video_style",
-        "label": "Video style",
-        "default": "muted",
-        "options": [
-          {
-            "value": "muted",
-            "label": "Video without sound"
-          },
-          {
-            "value": "unmuted",
-            "label": "Video with sound"
           }
         ]
       },
@@ -819,7 +805,8 @@
         "type": "checkbox",
         "id": "product_contact",
         "label": "Show contact form",
-        "default": false
+        "default": false,
+        "info": "All submissions are sent to the customer email address of your store. [Learn more](https://help.shopify.com/en/manual/using-themes/change-the-layout/add-contact-form#view-contact-form-submissions)."
       },
       {
         "type": "text",
@@ -995,7 +982,7 @@
     ]
   },
   {
-    "name": "Cart and currencies",
+    "name": "Cart",
     "settings": [
       {
         "type": "header",
@@ -1014,6 +1001,26 @@
           {
             "value": "drawer",
             "label": "Drawer"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "cart_icon",
+        "label": "Cart icon",
+        "default": "bag-minimal",
+        "options": [
+          {
+            "value": "bag",
+            "label": "Bag"
+          },
+          {
+            "value": "bag-minimal",
+            "label": "Minimal bag"
+          },
+          {
+            "value": "cart",
+            "label": "Cart"
           }
         ]
       },
@@ -1037,52 +1044,6 @@
         "type": "url",
         "id": "cart_terms_conditions_link",
         "label": "Terms and conditions page"
-      },
-      {
-        "type": "header",
-        "content": "Multi-currency"
-      },
-      {
-        "type": "checkbox",
-        "id": "enable_currencies",
-        "label": "Enable currency conversion",
-        "default": false
-      },
-      {
-        "type": "paragraph",
-        "content": "[Shopify's multi-currency feature](https://help.shopify.com/en/manual/payments/shopify-payments/multi-currency) can be enabled in your Shopify Payments settings. It allows you to display prices and accept payments in multiple currencies."
-      },
-      {
-        "type": "header",
-        "content": "Currency converter"
-      },
-      {
-        "type": "paragraph",
-        "content": "If not using the native multi-currency feature but still want users to see prices in different currencies on your store, you must first [edit your store's currency formatting](https://help.shopify.com/manual/using-themes/troubleshooting/help-script-find-money-formats)."
-      },
-      {
-        "type": "select",
-        "id": "currency_format",
-        "label": "Format",
-        "options": [
-         {
-           "value": "money_format",
-           "label": "Without currency ($10.00)"
-         },
-         {
-           "value": "money_with_currency_format",
-           "label": "With currency ($10.00 CAD)"
-         }
-        ],
-        "default": "money_format",
-        "info": "Does not work with amount_no_decimals format"
-      },
-      {
-        "type": "text",
-        "id": "supported_currencies",
-        "label": "Supported currencies",
-        "default": "USD CAD INR GBP AUD EUR JPY",
-        "info": "Use the country's ISO [currency code](http:\/\/www.xe.com\/iso4217.php). Separate your currency codes with a space."
       }
     ]
   },
@@ -1122,6 +1083,12 @@
         "id": "social_snapchat_link",
         "label": "Snapchat",
         "info": "https://www.snapchat.com/add/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok",
+        "info": "https://www.tiktok.com/@shopify"
       },
       {
         "type": "text",
@@ -1168,12 +1135,6 @@
         "id": "share_pinterest",
         "label": "Pin on Pinterest",
         "default": true
-      },
-      {
-        "type": "image_picker",
-        "id": "homepage_social_image",
-        "label": "Home page image",
-        "info": "Shown when your home page is shared on Facebook or Twitter"
       }
     ]
   },
@@ -1201,7 +1162,7 @@
         "type": "select",
         "id": "search_type",
         "label": "Search results",
-        "default": "product,article,page",
+        "default": "product,article,page,collection",
         "options": [
           {
             "value": "product",
@@ -1217,6 +1178,10 @@
           },
           {
             "value": "product,article,page",
+            "label": "Products, articles and pages"
+          },
+          {
+            "value": "product,article,page,collection",
             "label": "All content"
           }
         ]
@@ -1271,6 +1236,32 @@
         "type": "checkbox",
         "id": "show_breadcrumbs",
         "label": "Show breadcrumbs"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_breadcrumbs_collection_link",
+        "label": "Show collections page in breadcrumb list"
+      },
+      {
+        "type": "select",
+        "id": "text_direction",
+        "label": "Text direction",
+        "default": "ltr",
+        "options": [
+          {
+            "value": "ltr",
+            "label": "Left to right"
+          },
+          {
+            "value": "rtl",
+            "label": "Right to left"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "disable_animations",
+        "label": "Disable zoom animations"
       }
     ]
   }

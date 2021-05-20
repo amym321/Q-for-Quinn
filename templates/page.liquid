@@ -1,6 +1,6 @@
 <div class="page-width page-content">
 
-  {%- include 'breadcrumbs' -%}
+  {%- render 'breadcrumbs' -%}
 
 	<div class="grid">
     <div class="grid__item medium-up--three-quarters medium-up--push-one-eighth">
@@ -11,20 +11,6 @@
 
       <div class="rte rte--nomargin">
         {{ page.content }}
-        
-                <!--Start Site Map Code-->
-  {% if page.url contains "site-map" %}
-  <div style="padding-top: 10px;">
-    {% for collection in collections %}
-    <h3>{{ collection.title }}</h3>
-    <ul>{% paginate collection.products by 200 %}
-      {% for product in collection.products %}
-      <li><a href="{{ product.url }}">{{ product.title }}</a></li>
-      {% endfor %}{% endpaginate %}</ul>
-    {% endfor %}
-    {% endif %}
-   <!--End Site Map Code-->
-    
       </div>
 
     </div>

@@ -1,28 +1,19 @@
-<script data-cfasync="false" type="text/javascript">if (typeof Shopify === "undefined") var Shopify = {}; Shopify.cart = {{ cart | json }};</script> 
-<div id="sca-fg-owl-carousel">
-  <div id="freegift_cart_container" class="sca-fg-cart-container" style="display: none;">
-    <div id="freegift_message" class="owl-carousel"></div>
-  </div> 
-  <div id="sca-fg-slider-cart" style="display: none;">
-    <div class="sca-fg-cart-title">
-      <strong>Select your free gift (s)</strong>
-    </div>
-    <div id="sca_freegift_list" class="owl-carousel"></div>
-  </div>
-</div>
-<div id="sca_fg_cart">
 <div class="page-width page-content">
-  {%- include 'breadcrumbs' -%}
+
+  {%- render 'breadcrumbs' -%}
+
   <div class="grid">
     <div class="grid__item">
       {% if cart.item_count > 0 %}
         <header class="section-header">
           <h1 class="section-header__title">{{ 'cart.general.title' | t }}</h1>
           <div class="rte text-spacing">
-            <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
+            <p>{{ 'cart.general.continue_browsing_html' | t: url: routes.all_products_collection_url }}</p>
           </div>
         </header>
-        <form action="/cart" method="post" novalidate class="cart">
+
+        <form action="{{ routes.cart_url }}" method="post" novalidate class="cart">
+
           <div class="cart__row small--hide">
             <div class="grid grid--full">
               <div class="grid__item medium-up--two-fifths medium-up--push-three-fifths">
@@ -40,14 +31,16 @@
               </div>
             </div>
           </div>
+
           {% for item in cart.items %}
-{%- include 'bold-cart-item' with item -%}
             <div class="cart__row">
               <div class="grid grid--full cart__row--table-large">
+
                 <div class="grid__item medium-up--three-fifths">
                   <div class="grid">
+
                     <div class="grid__item one-quarter">
-                      <a href="{{ item.url | within: collections.all }}" class="cart__image">
+                      <a href="{{ item.url }}" class="cart__image">
                         {%- assign img_url = item | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
                         <img class="lazyload"
                             data-src="{{ img_url }}"
@@ -57,31 +50,39 @@
                             alt="{{ item.title | escape }}">
                       </a>
                     </div>
+
                     <div class="grid__item three-quarters">
                       <a href="{{ item.url }}" class="h4 cart__product-name">
                         {{ item.product.title }}
                       </a>
                       {%- unless item.product.has_only_default_variant -%}
-                        <p class="cart__product-meta">
+                        <div class="cart__variant-meta">
                           {{ item.variant.title }}
-                        </p>
+                        </div>
                       {%- endunless -%}
+
+                      <div class="cart__product-meta {% if item.selling_plan_allocation == empty %}hide {% endif %}">
+                        {{ item.selling_plan_allocation.selling_plan.name }}
+                      </div>
+
                       {%- assign property_size = item.properties | size -%}
                       {% if property_size > 0 %}
                         {% for p in item.properties %}
                           {%- assign first_character_in_key = p.first | truncate: 1, '' -%}
                           {% unless p.last == blank or first_character_in_key == '_' %}
-                            {{ p.first }}:
-                            {% if p.last contains '/uploads/' %}
-                              <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
-                            {% else %}
-                              {{ p.last }}
-                            {% endif %}
-                            <br>
+                            <div class="cart__product-meta">
+                              {{ p.first }}:
+                              {% if p.last contains '/uploads/' %}
+                                <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                              {% else %}
+                                {{ p.last }}
+                              {% endif %}
+                            </div>
                           {% endunless %}
                         {% endfor %}
                       {% endif %}
-                      <p class="cart__product-meta">
+
+                      <p>
                         <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="btn btn--secondary btn--small small--hide">
                           {{ 'cart.general.remove' | t }}
                         </a>
@@ -90,10 +91,13 @@
                         </a>
                       </p>
                     </div>
+
                   </div>
                 </div>
+
                 <div class="grid__item medium-up--two-fifths">
                   <div class="grid grid--full cart__row--table-large">
+
                     <div class="grid__item one-third medium-up--text-right">
                       <label class="medium-up--hide">
                         {{ 'cart.label.price' | t }}
@@ -106,14 +110,16 @@
                       {% else %}
                         <span class="cart__price">{{ item.original_price | money }}</span>
                       {% endif %}
+
                       {%- if item.line_level_discount_allocations != blank -%}
                         {%- for discount_allocation in item.line_level_discount_allocations -%}
                           <small class="cart__discount">{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})</small>
                         {%- endfor -%}
                       {%- endif -%}
+
                       {%- if item.unit_price_measurement -%}
                         {%- capture unit_price_base_unit -%}
-                          <span class="unit-price-base--{{ section_id }}">
+                          <span class="unit-price-base">
                             {%- if item.unit_price_measurement -%}
                               {%- if item.unit_price_measurement.reference_value != 1 -%}
                                 {{ item.unit_price_measurement.reference_value }}
@@ -122,14 +128,16 @@
                             {%- endif -%}
                           </span>
                         {%- endcapture -%}
+
                         <div class="product__unit-price">{{ item.unit_price | money }}/{{ unit_price_base_unit }}</div>
                       {%- endif -%}
                     </div>
+
                     <div class="grid__item one-third text-center">
-                      <label for="updates_{{ item.key }}" class="medium-up--hide">{{ 'cart.label.quantity' | t }}</label>
-                      <label for="updates_{{ item.key }}" class="visually-hidden">{{ 'cart.label.quantity' | t }}</label>
-                      <input type="number" name="updates[]" id="updates_{{ item.key }}" class="cart__product-qty" value="{{ item.quantity }}" {{ bold_qty_attr }}  min="0" data-id="{{ item.key }}">
+                      <label for="cart_updates_{{ item.key }}" class="medium-up--hide">{{ 'cart.label.quantity' | t }}</label>
+                      <input type="number" name="updates[]" id="cart_updates_{{ item.key }}" class="cart__product-qty" value="{{ item.quantity }}" min="0" data-id="{{ item.key }}">
                     </div>
+
                     <div class="grid__item one-third text-right">
                       <label class="medium-up--hide">
                         {{ 'cart.label.total' | t }}
@@ -145,15 +153,17 @@
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           {% endfor %}
+
           <div class="cart__row">
             <div class="grid">
               {% if settings.cart_notes_enable %}
                 <div class="grid__item medium-up--one-half">
                   <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
-                  <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+                  <textarea name="note" class="input-full cart-notes" id="CartSpecialInstructions">{{ cart.note }}</textarea>
                 </div>
               {% endif %}
               <div class="grid__item medium-up--one-half text-center medium-up--text-right{% unless settings.cart_notes_enable %} medium-up--push-one-half{% endunless %}">
@@ -181,11 +191,6 @@
                 </div>
                 <small>
                   {{ 'cart.general.shipping_at_checkout' | t }}<br />
-                  {% if settings.enable_currencies %}
-                    {%- unless shop.enabled_currencies.size > 1 -%}
-                      {{ 'cart.general.orders_processed_in_currency_html' | t: currency: cart.currency.iso_code }}
-                    {%- endunless -%}
-                  {% endif %}
                 </small>
                 {% if settings.cart_terms_conditions_enable %}
                   <p class="ajaxcart__note ajaxcart__note--terms">
@@ -199,27 +204,32 @@
                     </label>
                   </p>
                 {% endif %}
+
                 <div class="cart__checkout-wrapper">
                   <button type="submit" name="update" class="btn btn--secondary cart__update">
                     {{ 'cart.general.update' | t }}
                   </button>
-                  <button type="submit" name="checkout" class="btn cart__checkout{% if settings.cart_terms_conditions_enable %} cart__checkout--page{% endif %}">
+                  <button type="submit" name="checkout" {% if settings.cart_terms_conditions_enable %} data-terms="CartPageAgree"{% endif %} class="btn cart__checkout">
                     {{ 'cart.general.checkout' | t }}
                   </button>
+
                   {% if additional_checkout_buttons and settings.cart_additional_buttons %}
                     <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
                   {% endif %}
                 </div>
               </div>
             </div>
+
           </div>
+
         </form>
+
       {% else %}
         <header class="section-header section-header--404">
           <h1 class="section-header__title">{{ 'cart.general.title' | t }}</h1>
           <div class="rte text-spacing">
             <p>{{ 'cart.general.empty' | t }}</p>
-            <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
+            <p>{{ 'cart.general.continue_browsing_html' | t: url: routes.all_products_collection_url }}</p>
           </div>
         </header>
       {% endif %}
@@ -231,46 +241,5 @@
   {{ settings.mlvedaACS_messageContent | replace: "<<shop.name>>", shop.name | replace:"<<shop.currency>>",shop.currency|replace:"<<shop.selected_currency>>","<span class='selected-currency'></span>"}}
 </p>
 {% endif %}
-</div><!-- SnappicSnipStart -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','//connect.facebook.net/en_US/fbevents.js');
-fbq('init', '634688553801519');
-fbq('track', 'PageView');
-var money_format = '{{ shop.money_format }}';
-var value;
-if (money_format.match(/amount_with_apostrophe_separator/)) {
-  // 1'134.65 -> 1134.65
-  value = "{{ cart.total_price | money_without_currency | remove: "'" }}";
-}
-else if (money_format.match(/amount_no_decimals_with_comma_separator/)) {
-  // 1.135 -> 1135
-  value = "{{ cart.total_price | money_without_currency | remove: '.' }}";
-}
-else if (money_format.match(/amount_with_comma_separator/)) {
-  // 1.134,65 -> 1134.65
-  value = "{{ cart.total_price | money_without_currency | remove: '.' | replace: ',', '.' }}";
-}
-else if (money_format.match(/amount_no_decimals/)) {
-  // 1,135 -> 1135
-  value = "{{ cart.total_price | money_without_currency | remove: ',' }}";
-}
-else if (money_format.match(/amount/)) {
-  // 1,134.65 -> 1134.65
-  value = "{{ cart.total_price | money_without_currency | remove: ',' }}";
-}
-else {
-  value = "{{ cart.total_price | money_without_currency }}";
-}
-fbq('track', 'AddToCart', {
-  value: value,
-  currency: '{{shop.currency}}',
-  content_type: 'product',
-  content_ids: [{% for item in cart.items %}'snappic_{{item.product.id}}',{% endfor %}],
-});
-</script>
-<noscript>
-  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=634688553801519&ev=PageView&noscript=1" />
-</noscript>
-<!-- SnappicSnipEnd -->
-<script src="https://widget.sezzle.com/v1/javascript/price-widget?uuid=0d3fcabe-08ee-4173-80db-00863985e9a2"></script>
+
 <script src="https://widget.sezzle.com/v1/javascript/price-widget?uuid=0d3fcabe-08ee-4173-80db-00863985e9a2"></script>

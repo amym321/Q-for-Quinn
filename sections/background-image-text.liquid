@@ -1,94 +1,76 @@
-{% style %}
+{%- style -%}
   @media screen and (max-width: 768px) {
     .background-media-text--{{ section.id }} {
-      background: {{ section.settings.color_border }};
+      background-image: url({{ section.settings.image | img_url: '1x1' }});
     }
   }
-{% endstyle %}
+{%- endstyle -%}
 
 <div
   data-section-id="{{ section.id }}"
   data-section-type="background-image"
   class="background-media-text background-media-text--{{ section.id }} background-media-text--{{ section.settings.height }} loaded"
   data-aos="background-media-text__animation"
-  {% if section.settings.parallax %}data-parallax="true"{% endif %}
-  >
+  {% if section.settings.parallax %}data-parallax="true"{% endif %}>
 
   <div class="background-media-text__container">
-    {% if section.settings.parallax %}
+    {%- if section.settings.parallax -%}
       <div class="parallax-container">
-        {% if section.settings.image != blank %}
-          {% style %}
-            .background-media-text--{{ section.id }} .background-media-text__image {
-              background-position: {{ section.settings.focal_point }};
-            }
-          {% endstyle %}
-          <div
-            class="parallax-image background-media-text__image lazyload"
-            {% if section.settings.image != blank %}
-              data-bgset="{% include 'bgset', image: section.settings.image %}"
-              data-sizes="auto"
-            {% endif %}></div>
-        {% else %}
-          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-        {% endif %}
-      </div>
-    {% else %}
-      {% if section.settings.image != blank %}
-        {% style %}
-          .background-media-text__image--{{ section.id }} {
-            object-position: {{ section.settings.focal_point }};
-            font-family: "object-fit: cover; object-position: {{ section.settings.focal_point }};";
-          }
-        {% endstyle %}
+        <div class="parallax-image">
+    {%- endif -%}
 
+      {%- if section.settings.image != blank -%}
         {%- assign img_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-
         <img
-          class="image-fit background-media-text__image background-media-text__image--{{ section.id }} lazyload"
+          class="background-media-text__image background-media-text__image--{{ section.id }} lazyload"
           src=""
           data-src="{{ img_url }}"
           data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+          data-widths="[720, 900, 1080, 1800, 2400]"
           data-sizes="auto"
-          data-parent-fit="cover"
-          alt="{{ section.settings.image.alt | escape }}">
+          alt="{{ section.settings.image.alt | escape }}"
+          style="object-position: {{ section.settings.focal_point }}">
         <noscript>
           <img
             class="image-fit background-media-text__image background-media-text__image--{{ section.id }} lazyloaded"
             src="{{ section.settings.image | img_url: '1800x' }}"
             alt="{{ section.settings.image.alt }}">
         </noscript>
-      {% else %}
+      {%- else -%}
         {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-      {% endif %}
-    {% endif %}
+      {%- endif -%}
+
+    {%- if section.settings.parallax -%}
+        </div>
+      </div>
+    {%- endif -%}
   </div>
-  {% if section.settings.subtitle != blank or section.settings.title != blank or section.settings.text != blank %}
+  {%- if section.settings.subtitle != blank or section.settings.title != blank or section.settings.text != blank -%}
     <div class="background-media-text__inner">
       <div class="background-media-text__aligner background-media-text--{{ section.settings.layout }}">
         <div class="animation-cropper">
           <div class="animation-contents">
             <div class="background-media-text__text{% if section.settings.framed %} background-media-text__text--framed{% endif %}">
-              {% if section.settings.subtitle %}
+              {%- if section.settings.subtitle -%}
                 <p class="h5">{{ section.settings.subtitle }}</p>
-              {% endif %}
-              {% if section.settings.title != blank %}
+              {%- endif -%}
+              {%- if section.settings.title != blank -%}
                 <p class="h3">{{ section.settings.title | escape }}</p>
-              {% endif %}
-              {% if section.settings.text != blank %}
+              {%- endif -%}
+              {%- if section.settings.text != blank -%}
                 <div class="rte background-media-text__subtext">{{ section.settings.text }}</div>
-              {% endif %}
-              {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+              {%- endif -%}
+              {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
                 <a href="{{ section.settings.button_link }}" class="btn">
                   {{ section.settings.button_label }}
                 </a>
-              {% endif %}
+              {%- endif -%}
             </div>
           </div>
         </div>
       </div>
     </div>
-  {% endif %}
+  {%- endif -%}
 </div>
 
 <div class="background-media-text__spacer background-media-text--{{ section.settings.height }}"></div>
@@ -175,13 +157,6 @@
             "label": "Bottom right"
           }
         ]
-      },
-      {
-        "type": "color",
-        "id": "color_border",
-        "label": "Image color",
-        "info": "Used for mobile border",
-        "default": "#f4f4f4"
       },
       {
         "type": "select",

@@ -1,8 +1,8 @@
-{% paginate search.results by 12 %}
+{%- paginate search.results by 12 -%}
 
 <div class="page-width page-content">
 
-  {%- include 'breadcrumbs' -%}
+  {%- render 'breadcrumbs' -%}
 
   <div class="grid">
     <div class="grid__item">
@@ -12,9 +12,9 @@
         </h1>
       </header>
 
-      {% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--page' %}
+      {%- render 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--page' -%}
 
-      {% if search.performed %}
+      {%- if search.performed -%}
 
         <hr class="hr--medium">
 
@@ -23,27 +23,25 @@
             <h2 class="section-header__title">
               {{ 'general.search.result_count' | t: count: search.results_count }}
             </h2>
-            {% if search.results_count == 0 %}
+            {%- if search.results_count == 0 -%}
               <p>
-                {{ 'general.search.no_results_html' | t: terms: search.terms }}
+                {{ 'general.search.no_results_html' | t: terms: search.terms | replace: '*', '' }}
               </p>
-            {% endif %}
+            {%- endif -%}
           </div>
 
           <div class="grid grid--uniform">
-            {% for item in search.results %}
-{%- include 'bold-product' with item, hide_action: 'skip' -%}
+            {%- for item in search.results -%}
 
-              {% if item.object_type == 'product' %}
-                {%- assign product = item -%}
-                {% include 'product-grid-item' %}
-              {% else %}
+              {%- if item.object_type == 'product' -%}
+                {%- render 'product-grid-item', product: item -%}
+              {%- else -%}
                 <div class="grid__item grid-search medium-up--one-quarter small--one-half">
                   <div class="grid-search__page">
                     <a href="{{ item.url }}" class="grid-search__page-link">
                       <span class="grid-search__page-content">
                         <span class="h4">{{ item.title }}</span>
-                        {% if item.object_type == 'article' and item.image %}
+                        {%- if item.object_type == 'article' and item.image -%}
                           {%- assign img_url = item.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
                           <img class="grid-product__image lazyload"
                               data-src="{{ img_url }}"
@@ -51,36 +49,35 @@
                               data-aspectratio="{{ item.image.aspect_ratio }}"
                               data-sizes="auto"
                               alt="{{ item.title | escape }}">
-                        {% endif %}
+                        {%- endif -%}
                         {{ item.content | strip_html | truncatewords: 45 }}
                       </span>
                     </a>
                   </div>
                 </div>
-              {% endif %}
+              {%- endif -%}
 
-            {% endfor %}
+            {%- endfor -%}
 
-            {% for item in search.results %}
-{%- include 'bold-product' with item, hide_action: 'skip' -%}
-              {% if item.object_type == 'product' %}
-                {% if settings.quick_shop_enable %}
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {%- if settings.quick_shop_enable -%}
                   {%- assign product = item -%}
-                  {% include 'quick-shop-modal' %}
-                {% endif %}
-              {% endif %}
-            {% endfor %}
+                  {%- render 'quick-shop-modal', product: product -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
           </div>
         </div>
 
-        {% if paginate.pages > 1 %}
-          {% include 'pagination' %}
-        {% endif %}
+        {%- if paginate.pages > 1 -%}
+          {%- render 'pagination', paginate: paginate -%}
+        {%- endif -%}
 
-      {% endif %}
+      {%- endif -%}
 
     </div>
   </div>
 </div>
 
-{% endpaginate %}
+{%- endpaginate -%}

@@ -9,7 +9,7 @@
       </header>
 
       <div class="form-vertical">
-        {% form 'activate_customer_password' %}
+        {%- form 'activate_customer_password' -%}
 
           {{ form.errors | default_errors }}
 
@@ -22,7 +22,7 @@
           <button type="submit" class="btn">
             {{ 'customer.activate_account.submit' | t }}
           </button>
-        {% endform %}
+        {%- endform -%}
       </div>
 
     </div>

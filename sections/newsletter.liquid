@@ -1,4 +1,4 @@
-{% style %}
+{%- style -%}
   .newsletter-{{ section.id }} {
     background-color: {{ section.settings.color_background }};
     color: {{ section.settings.color_text }};
@@ -7,18 +7,18 @@
   .newsletter-{{ section.id }} .newsletter__input::-webkit-input-placeholder { color: {{ section.settings.color_text }}; }
   .newsletter-{{ section.id }} .newsletter__input::-moz-placeholder { color: {{ section.settings.color_text }}; }
   .newsletter-{{ section.id }} .newsletter__input::-ms-input-placeholder { color: {{ section.settings.color_text }}; }
-{% endstyle %}
+{%- endstyle -%}
 
 <div class="newsletter-section newsletter-{{ section.id }}{% if section.settings.color_background == settings.color_body_bg %} newsletter-section--with-divider{% endif %}">
   <div class="page-width text-center">
-    {% if section.settings.title != blank %}
+    {%- if section.settings.title != blank -%}
       <p class="h3">{{ section.settings.title | escape }}</p>
-    {% endif %}
-    {% if section.settings.text != blank %}
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
       <div class="rte">{{ section.settings.text }}</div>
-    {% endif %}
+    {%- endif -%}
 
-    {% include 'newsletter-form', section_id: section.id, snippet_context: 'section' %}
+    {%- render 'newsletter-form', section_id: section.id, snippet_context: 'section' -%}
   </div>
 </div>
 

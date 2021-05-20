@@ -1,25 +1,25 @@
-{% paginate customer.addresses by 5 %}
+{%- paginate customer.addresses by 5 -%}
 
 <div class="page-width page-content">
 
-  {% if settings.show_breadcrumbs %}
+  {%- if settings.show_breadcrumbs -%}
     <nav class="breadcrumb{% if settings.type_headers_align_text %} text-center{% endif %}" role="navigation" aria-label="breadcrumbs">
       <a href="{{ routes.account_url }}">{{ 'customer.account.title' | t }}</a>
       <span class="divider" aria-hidden="true">/</span>
       {{ 'customer.addresses.title' | t }}
     </nav>
-  {% endif %}
+  {%- endif -%}
 
   <header class="section-header{% unless settings.type_headers_align_text %} section-header--with-link{% endunless %}">
     <h1 class="section-header__title">{{ 'customer.addresses.title' | t }}</h1>
-    <button type="button" class="btn btn--secondary btn--small section-header__link address-new-toggle js-no-transition">{{ 'customer.addresses.add_new' | t }}</a>
+    <button type="button" class="btn btn--secondary btn--small section-header__link address-new-toggle">{{ 'customer.addresses.add_new' | t }}</a>
   </header>
 
   <div class="grid">
     <div class="grid__item medium-up--two-thirds medium-up--push-one-sixth text-center">
 
       <div id="AddressNewForm" class="form-vertical js-address-form text-left hide">
-        {% form 'customer_address', customer.new_address %}
+        {%- form 'customer_address', customer.new_address -%}
 
           <h2>{{ 'customer.addresses.add_new' | t }}</h2>
 
@@ -91,17 +91,13 @@
             <button type="button" class="text-link address-new-toggle">{{ 'customer.addresses.cancel' | t }}</button>
           </p>
 
-        {% endform %}
+        {%- endform -%}
       </div>
 
-      {% comment %}
-        List all customer addresses with a unique edit form.
-        Also add pagination in case they have a large number of addresses
-      {% endcomment %}
-      {% for address in customer.addresses %}
-        {% if address == customer.default_address %}
+      {%- for address in customer.addresses -%}
+        {%- if address == customer.default_address -%}
           <p class="h4">{{ 'customer.addresses.default' | t }}</p>
-        {% endif %}
+        {%- endif -%}
 
         {{ address | format_address }}
 
@@ -111,7 +107,7 @@
         </p>
 
         <div id="EditAddress_{{ address.id }}" class="form-vertical js-address-form text-left hide">
-          {% form 'customer_address', address %}
+          {%- form 'customer_address', address -%}
 
             <hr class="hr--large" />
             <h2>{{ 'customer.addresses.edit_address' | t }}</h2>
@@ -179,19 +175,19 @@
             <p>
               <button type="button" class="text-link address-edit-toggle" data-form-id="{{ form.id }}">{{ 'customer.addresses.cancel' | t }}</button>
             </p>
-          {% endform %}
+          {%- endform -%}
         </div>
 
         <hr class="hr--medium">
 
-      {% endfor %}
+      {%- endfor -%}
 
-      {% if paginate.pages > 1 %}
-        {% include 'pagination' %}
-      {% endif %}
+      {%- if paginate.pages > 1 -%}
+        {%- render 'pagination', paginate: paginate -%}
+      {%- endif -%}
 
     </div>
   </div>
 </div>
 
-{% endpaginate %}
+{%- endpaginate -%}

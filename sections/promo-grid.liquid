@@ -1,13 +1,13 @@
 <div
   data-section-id="{{ section.id }}"
   data-section-type="promo-grid">
-  {% unless section.settings.full_width %}
+  {%- unless section.settings.full_width -%}
     <div class="page-width">
-  {% endunless %}
+  {%- endunless -%}
 
-  {% include 'promo-grid' %}
+  {%- render 'promo-grid', section: section, collection_page: false -%}
 
-  {% if section.blocks.size == 0 %}
+  {%- if section.blocks.size == 0 -%}
     <div class="page-width text-center">
       <div class="rte">
         <p>
@@ -15,11 +15,11 @@
         </p>
       </div>
     </div>
-  {% endif %}
+  {%- endif -%}
 
-  {% unless section.settings.full_width %}
+  {%- unless section.settings.full_width -%}
     </div>
-  {% endunless %}
+  {%- endunless -%}
 </div>
 
 {% schema %}
@@ -47,13 +47,13 @@
         "type": "checkbox",
         "id": "space_above",
         "label": "Add top spacing",
-        "default": false
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "space_below",
         "label": "Add bottom spacing",
-        "default": false
+        "default": true
       }
     ],
     "presets": [{
@@ -61,15 +61,17 @@
       "category": "Promotional",
       "blocks": [
         {
-          "type": "simple",
+          "type": "advanced",
           "settings": {
-            "width": "50"
+            "width": "50",
+            "text_size": 100
           }
         },
         {
-          "type": "simple",
+          "type": "advanced",
           "settings": {
-            "width": "50"
+            "width": "50",
+            "text_size": 100
           }
         }
       ]
@@ -329,7 +331,7 @@
             "type": "color",
             "id": "color_tint",
             "label": "Tint",
-            "default": "#000"
+            "default": "#000000"
           },
           {
             "type": "range",
@@ -464,7 +466,7 @@
             "type": "color",
             "id": "color_tint",
             "label": "Tint",
-            "default": "#000"
+            "default": "#000000"
           },
           {
             "type": "range",
@@ -539,7 +541,7 @@
             "type": "color",
             "id": "color_tint",
             "label": "Tint",
-            "default": "#000"
+            "default": "#000000"
           },
           {
             "type": "range",
@@ -626,7 +628,7 @@
             "type": "color",
             "id": "color_tint",
             "label": "Tint",
-            "default": "#000"
+            "default": "#000000"
           },
           {
             "type": "range",

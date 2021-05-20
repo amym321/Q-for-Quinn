@@ -1,6 +1,8 @@
 {% section 'product-template' %}
+{% section 'product-story-sections' %}
 {% section 'product-recommendations' %}
 {% section 'recently-viewed' %}
+
 {% if collection %}
   <div class="text-center page-content page-content--bottom">
     <a href="{% if collection.handle == 'frontpage' %}/{% else %}{{ collection.url }}{% endif %}" class="btn btn--small return-link">
@@ -8,26 +10,6 @@
     </a>
   </div>
 {% endif %}
-<script>
-  // Override default values of shop.strings for each template.
-  // Alternate product templates can change values of
-  // add to cart button, sold out, and unavailable states here.
-  theme.productStrings = {
-    addToCart: {{ 'products.product.add_to_cart' | t | json }},
-    soldOut: {{ 'products.product.sold_out' | t | json }},
-    unavailable: {{ 'products.product.unavailable' | t | json }}
-  };
-</script>
-<!-- SnappicSnipStart -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','//connect.facebook.net/en_US/fbevents.js');
-fbq('init', '634688553801519');
-fbq('track', 'PageView');
-fbq('track', 'ViewContent', { content_ids: ['snappic_{{product.id}}'], content_type: 'product' });
-</script>
-<noscript>
-  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=634688553801519&ev=PageView&noscript=1" />
-</noscript>
-<!-- SnappicSnipEnd -->
-<script src="https://widget.sezzle.com/v1/javascript/price-widget?uuid=0d3fcabe-08ee-4173-80db-00863985e9a2"></script>
+
+
 <script src="https://widget.sezzle.com/v1/javascript/price-widget?uuid=0d3fcabe-08ee-4173-80db-00863985e9a2"></script>

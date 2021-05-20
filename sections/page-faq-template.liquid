@@ -3,19 +3,19 @@
 
     <div class="grid">
       <div class="grid__item medium-up--three-quarters medium-up--push-one-eighth">
-        {%- include 'breadcrumbs' -%}
+        {%- render 'breadcrumbs' -%}
 
-        {% if section.settings.page_title_enable %}
+        {%- if section.settings.page_title_enable -%}
           <header class="section-header">
             <h1 class="section-header__title">{{ page.title }}</h1>
           </header>
-        {% endif %}
+        {%- endif -%}
 
-        {% if section.settings.page_content_enable %}
+        {%- if section.settings.page_content_enable -%}
           <div class="rte text-spacing">
             {{ page.content }}
           </div>
-        {% endif %}
+        {%- endif -%}
       </div>
     </div>
   </div>
@@ -26,17 +26,17 @@
     <div class="grid">
       <div class="grid__item medium-up--three-quarters medium-up--push-one-eighth">
 
-        <div class="page-blocks page-blocks--flush">
+        <div class="page-blocks page-blocks--flush" itemscope itemtype="https://schema.org/FAQPage">
           {%- for block in section.blocks -%}
             <div {{ block.shopify_attributes }}>
-              {% case block.type %}
-                {% when 'rich-text'%}
-                  {% include 'page-block-rich-text', section_class: 'index-section--faq' %}
+              {%- case block.type -%}
+                {%- when 'rich-text'-%}
+                  {%- render 'page-block-rich-text', section_class: 'index-section--faq', block: block -%}
 
-                {% when 'question'%}
-                  {% include 'page-block-faq' %}
+                {%- when 'question'-%}
+                  {%- render 'page-block-faq', block: block -%}
 
-              {% endcase %}
+              {%- endcase -%}
             </div>
           {%- endfor -%}
         </div>

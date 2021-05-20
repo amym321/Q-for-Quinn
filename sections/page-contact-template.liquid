@@ -1,28 +1,30 @@
-{% if section.settings.page_title_enable or section.settings.page_content_enable %}
+{%- render 'page-section-header-overlay', seciton: section -%}
+
+{%- if section.settings.page_title_enable or section.settings.page_content_enable -%}
   <div class="page-width page-content{% if section.blocks.size > 0 %} page-content--with-blocks{% endif %}">
 
     <div class="grid">
       <div class="grid__item medium-up--three-quarters medium-up--push-one-eighth">
-        {%- include 'breadcrumbs' -%}
+        {%- render 'breadcrumbs' -%}
 
-        {% if section.settings.page_title_enable %}
+        {%- if section.settings.page_title_enable -%}
           <header class="section-header">
             <h1 class="section-header__title">{{ page.title }}</h1>
           </header>
-        {% endif %}
+        {%- endif -%}
 
-        {% if section.settings.page_content_enable %}
+        {%- if section.settings.page_content_enable -%}
           <div class="rte text-spacing">
             {{ page.content }}
           </div>
-        {% endif %}
+        {%- endif -%}
 
       </div>
     </div>
   </div>
-{% endif %}
+{%- endif -%}
 
-{% include 'page-template-blocks' %}
+{%- render 'page-template-blocks', section: section -%}
 
 {% schema %}
   {
@@ -39,6 +41,12 @@
         "id": "page_content_enable",
         "label": "Show page content",
         "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "overlaid_header",
+        "label": "Overlay header over image sections",
+        "default": true
       }
     ],
     "default": {
@@ -53,6 +61,10 @@
         "type": "contact-form",
         "name": "Contact form",
         "settings": [
+          {
+            "type": "paragraph",
+            "content": "All submissions are sent to the customer email address of your store. [Learn more](https://help.shopify.com/en/manual/using-themes/change-the-layout/add-contact-form#view-contact-form-submissions)."
+          },
           {
             "type": "text",
             "id": "title",
@@ -498,13 +510,6 @@
             ]
           },
           {
-            "type": "color",
-            "id": "color_border",
-            "label": "Image color",
-            "info": "Used for mobile border",
-            "default": "#f4f4f4"
-          },
-          {
             "type": "select",
             "id": "layout",
             "label": "Layout",
@@ -742,7 +747,7 @@
             "type": "text",
             "id": "title",
             "label": "Title",
-            "default": "Testimonials"
+            "default": "From our customers"
           },
           {
             "type": "select",
@@ -767,8 +772,56 @@
             "info": "Requires square images"
           },
           {
+            "type": "color",
+            "id": "color_background",
+            "label": "Background",
+            "default": "#f9f9f9"
+          },
+          {
+            "type": "color",
+            "id": "color_text",
+            "label": "Text",
+            "default": "#1c1d1d"
+          },
+          {
             "type": "header",
             "content": "Testimonial 1"
+          },
+          {
+            "type": "select",
+            "id": "icon_1",
+            "label": "Icon",
+            "default": "5-stars",
+            "options": [
+              {
+                "value": "none",
+                "label": "None"
+              },
+              {
+                "value": "quote",
+                "label": "Quote"
+              },
+              {
+                "value": "5-stars",
+                "label": "5 stars"
+              },
+              {
+                "value": "4-stars",
+                "label": "4 stars"
+              },
+              {
+                "value": "3-stars",
+                "label": "3 stars"
+              },
+              {
+                "value": "2-stars",
+                "label": "2 stars"
+              },
+              {
+                "value": "1-star",
+                "label": "1 star"
+              }
+            ]
           },
           {
             "type": "richtext",
@@ -788,8 +841,50 @@
             "default": "Author's name"
           },
           {
+            "type": "text",
+            "id": "author_info_1",
+            "label": "Author info",
+            "default": "Los Angeles, CA"
+          },
+          {
             "type": "header",
             "content": "Testimonial 2"
+          },
+          {
+            "type": "select",
+            "id": "icon_2",
+            "label": "Icon",
+            "default": "5-stars",
+            "options": [
+              {
+                "value": "none",
+                "label": "None"
+              },
+              {
+                "value": "quote",
+                "label": "Quote"
+              },
+              {
+                "value": "5-stars",
+                "label": "5 stars"
+              },
+              {
+                "value": "4-stars",
+                "label": "4 stars"
+              },
+              {
+                "value": "3-stars",
+                "label": "3 stars"
+              },
+              {
+                "value": "2-stars",
+                "label": "2 stars"
+              },
+              {
+                "value": "1-star",
+                "label": "1 star"
+              }
+            ]
           },
           {
             "type": "richtext",
@@ -807,6 +902,12 @@
             "id": "author_2",
             "label": "Author",
             "default": "Author's name"
+          },
+          {
+            "type": "text",
+            "id": "author_info_2",
+            "label": "Author info",
+            "default": "Los Angeles, CA"
           }
         ]
       },
@@ -1053,6 +1154,17 @@
             "label": "Background video link",
             "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "info": "Supports YouTube, .MP4 and Vimeo. Not all features supported by Vimeo. [Learn more](https://archetypethemes.co/blogs/impulse/how-do-i-add-background-videos)"
+          },
+          {
+            "type": "range",
+            "id": "overlay_opacity",
+            "label": "Text protection",
+            "info": "Darkens your image to ensure your text is readable",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "step": 2,
+            "unit": "%"
           },
           {
             "type": "select",

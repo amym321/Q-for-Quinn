@@ -2,15 +2,15 @@
   data-section-id="{{ section.id }}"
   data-section-type="promo-grid">
 
-  {% if section.blocks.size > 0 %}
-    {% style %}
+  {%- if section.blocks.size > 0 -%}
+    {%- style -%}
       .flex-grid--{{ section.id }} {
         margin-bottom: {{ section.settings.gutter_size }}px;
       }
-    {% endstyle %}
+    {%- endstyle -%}
 
-    {% include 'promo-grid', collection_page: true %}
-  {% endif %}
+    {%- render 'promo-grid', section: section, collection_page: true -%}
+  {%- endif -%}
 </div>
 
 {% schema %}
@@ -295,7 +295,7 @@
             "type": "color",
             "id": "color_tint",
             "label": "Tint",
-            "default": "#000"
+            "default": "#000000"
           },
           {
             "type": "range",
@@ -442,7 +442,7 @@
             "type": "color",
             "id": "color_tint",
             "label": "Tint",
-            "default": "#000"
+            "default": "#000000"
           },
           {
             "type": "range",
@@ -523,7 +523,7 @@
             "type": "color",
             "id": "color_tint",
             "label": "Tint",
-            "default": "#000"
+            "default": "#000000"
           },
           {
             "type": "range",
@@ -616,7 +616,7 @@
             "type": "color",
             "id": "color_tint",
             "label": "Tint",
-            "default": "#000"
+            "default": "#000000"
           },
           {
             "type": "range",

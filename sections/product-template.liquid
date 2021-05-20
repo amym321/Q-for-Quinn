@@ -1,22 +1,33 @@
-{%- include 'bold-product' with product, hide_action: 'break', output: 'none' -%}
-{% include 'product-template',
+{%- liquid
+  assign isModal = false
+  if template == 'product.modal'
+    assign isModal = true
+  endif
+-%}
+
+{%- render 'product-template',
+  product: product,
   description_style: section.settings.description_style,
   image_position: section.settings.image_position,
   image_container_width: section.settings.image_size,
   section_id: product.id,
   social: section.settings.social_enable,
+  isModal: isModal,
   thumbnail_position: section.settings.thumbnail_position,
-  thumbnail_arrows: section.settings.thumbnail_arrows
-%}
+  thumbnail_arrows: section.settings.thumbnail_arrows,
+  mobile_layout: section.settings.mobile_layout,
+  video_looping: section.settings.enable_video_looping,
+  video_style: section.settings.product_video_style
+-%}
 
-{% if settings.enable_product_reviews and settings.reviews_layout == 'full' %}
+{%- if settings.enable_product_reviews and settings.reviews_layout == 'full' -%}
   <hr id="Reviews-{{ product.id }}" class="hr--clear">
   <div class="index-section product-reviews product-reviews--full">
     <div class="page-width">
-      <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+      <div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
     </div>
   </div>
-{% endif %}
+{%- endif -%}
 
 {% schema %}
   {
@@ -24,9 +35,39 @@
     "settings": [
       {
         "type": "select",
+        "id": "description_style",
+        "label": "Description position",
+        "default": "default",
+        "options": [
+          {
+            "value": "default",
+            "label": "Next to media"
+          },
+          {
+            "value": "full",
+            "label": "Below media"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "social_enable",
+        "label": "Enable social sharing",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Media"
+      },
+      {
+        "type": "paragraph",
+        "content": "Learn more about [media types](https://help.shopify.com/en/manual/products/product-media)"
+      },
+      {
+        "type": "select",
         "id": "image_position",
-        "label": "Images position",
-        "default": "right",
+        "label": "Position",
+        "default": "left",
         "options": [
           {
             "value": "left",
@@ -41,7 +82,7 @@
       {
         "type": "select",
         "id": "image_size",
-        "label": "Image size",
+        "label": "Size",
         "default": "medium",
         "options": [
           {
@@ -66,11 +107,11 @@
         "options": [
           {
             "value": "beside",
-            "label": "Next to image"
+            "label": "Next to media"
           },
           {
             "value": "below",
-            "label": "Below image"
+            "label": "Below media"
           }
         ]
       },
@@ -81,25 +122,42 @@
       },
       {
         "type": "select",
-        "id": "description_style",
-        "label": "Description position",
-        "default": "default",
+        "id": "mobile_layout",
+        "label": "Mobile layout",
+        "default": "partial",
         "options": [
           {
-            "value": "default",
-            "label": "Next to images"
+            "value": "partial",
+            "label": "75% width"
           },
           {
             "value": "full",
-            "label": "Below images"
+            "label": "Full width"
           }
         ]
       },
       {
         "type": "checkbox",
-        "id": "social_enable",
-        "label": "Enable social sharing",
+        "id": "enable_video_looping",
+        "label": "Enable video looping",
         "default": true
+      },
+      {
+        "type": "select",
+        "id": "product_video_style",
+        "label": "Video style",
+        "default": "muted",
+        "options": [
+          {
+            "value": "muted",
+            "label": "Video without sound"
+          },
+          {
+            "value": "unmuted",
+            "label": "Video with sound"
+          }
+        ],
+        "info": "Video with sound will not autoplay"
       }
     ]
   }
