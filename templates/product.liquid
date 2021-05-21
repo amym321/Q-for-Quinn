@@ -1,4 +1,41 @@
-{% section 'product-template' %}
+{% comment %} code change - am. loads one of many product templates based on tag.  
+previously loaded section 'product-template' only  {% endcomment %}
+{%- liquid
+  assign product_template2 = false
+  assign product_template3 = false
+  assign product_template4 = false
+  assign product_template5 = false
+  assign product_template6 = false
+  for tag in product.tags
+    if tag contains 'template-2'
+      assign product_template2 = true
+    elsif tag contains 'template-3'
+      assign product_template3 = true
+    elsif tag contains 'baby socks'
+      assign product_template4 = true
+    elsif tag contains 'template-5'
+      assign product_template5 = true
+    elsif tag contains 'template-6'
+      assign product_template6 = true
+    endif
+  endfor
+
+  if product_template2 == true
+    section 'product-template-2'
+  elsif product_template3 == true
+    section 'product-template-3'
+  elsif product_template4 == true
+    section 'product-template-4'
+  elsif product_template5 == true
+    section 'product-template-5'
+  elsif product_template6 == true
+    section 'product-template-6'
+  else
+    section 'product-template'
+  endif
+-%}
+{% comment %} end code change - AM {% endcomment %}
+
 {% section 'product-story-sections' %}
 {% section 'product-recommendations' %}
 {% section 'recently-viewed' %}
