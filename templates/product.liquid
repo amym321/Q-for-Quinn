@@ -6,8 +6,12 @@ previously loaded section 'product-template' only  {% endcomment %}
   assign product_template4 = false
   assign product_template5 = false
   assign product_template6 = false
+  assign product_template7 = false
+  assign product_template8 = false
+  assign product_template9 = false
+  assign product_template10 = false
   for tag in product.tags
-    if tag contains 'baby socks'
+    if tag contains 'template-2'
       assign product_template2 = true
     elsif tag contains 'template-3'
       assign product_template3 = true
@@ -17,6 +21,14 @@ previously loaded section 'product-template' only  {% endcomment %}
       assign product_template5 = true
     elsif tag contains 'template-6'
       assign product_template6 = true
+    elsif tag contains 'template-7'
+      assign product_template7 = true
+    elsif tag contains 'template-8'
+      assign product_template8 = true
+    elsif tag contains 'template-9'
+      assign product_template9 = true
+    elsif tag contains 'template-10'
+      assign product_template10 = true
     endif
   endfor
 
@@ -45,6 +57,26 @@ elsif product_template6 == true
   section 'product-story-sections-6'
   section 'product-recommendations-6'
   section 'recently-viewed-6'
+elsif product_template7 == true
+  section 'product-template-7'
+  section 'product-story-sections-7'
+  section 'product-recommendations-7'
+  section 'recently-viewed-7'
+  elsif product_template8 == true
+  section 'product-template-8'
+  section 'product-story-sections-8'
+  section 'product-recommendations-8'
+  section 'recently-viewed-8'
+elsif product_template9 == true
+  section 'product-template-9'
+  section 'product-story-sections-9'
+  section 'product-recommendations-9'
+  section 'recently-viewed-9'
+elsif product_template10 == true
+  section 'product-template-10'
+  section 'product-story-sections-10'
+  section 'product-recommendations-10'
+  section 'recently-viewed-10'
 else
   section 'product-template'
   section 'product-story-sections'
