@@ -11,23 +11,95 @@ previously loaded section 'product-template' only  {% endcomment %}
   assign product_template9 = false
   assign product_template10 = false
   for tag in product.tags
-    if tag contains 'template-2'
+    if tag contains 'page-2-socks'
       assign product_template2 = true
-    elsif tag contains 'template-3'
+      assign product_template3 = false
+      assign product_template4 = false
+      assign product_template5 = false
+      assign product_template6 = false
+      assign product_template7 = false
+      assign product_template8 = false
+      assign product_template9 = false
+      assign product_template10 = false
+    elsif tag contains 'page-3-adult-socks'
+      assign product_template2 = false
       assign product_template3 = true
-    elsif tag contains 'template-4'
+      assign product_template4 = false
+      assign product_template5 = false
+      assign product_template6 = false
+      assign product_template7 = false
+      assign product_template8 = false
+      assign product_template9 = false
+      assign product_template10 = false
+    elsif tag contains 'page-4-underwear-boxers'
+      assign product_template2 = false
+      assign product_template3 = false
       assign product_template4 = true
-    elsif tag contains 'template-5'
+      assign product_template5 = false
+      assign product_template6 = false
+      assign product_template7 = false
+      assign product_template8 = false
+      assign product_template9 = false
+      assign product_template10 = false
+    elsif tag contains 'page-5-underwear-boyshorts'
+      assign product_template2 = false
+      assign product_template3 = false
+      assign product_template4 = false
       assign product_template5 = true
-    elsif tag contains 'template-6'
+      assign product_template6 = false
+      assign product_template7 = false
+      assign product_template8 = false
+      assign product_template9 = false
+      assign product_template10 = false
+    elsif tag contains 'page-6-baby-basics'
+      assign product_template2 = false
+      assign product_template3 = false
+      assign product_template4 = false
+      assign product_template5 = false
       assign product_template6 = true
-    elsif tag contains 'template-7'
+      assign product_template7 = false
+      assign product_template8 = false
+      assign product_template9 = false
+      assign product_template10 = false
+    elsif tag contains 'page-7-face-masks'
+      assign product_template2 = false
+      assign product_template3 = false
+      assign product_template4 = false
+      assign product_template5 = false
+      assign product_template6 = false
       assign product_template7 = true
-    elsif tag contains 'template-8'
+      assign product_template8 = false
+      assign product_template9 = false
+      assign product_template10 = false
+    elsif tag contains 'page-8-merino-wool'
+      assign product_template2 = false
+      assign product_template3 = false
+      assign product_template4 = false
+      assign product_template5 = false
+      assign product_template6 = false
+      assign product_template7 = false
       assign product_template8 = true
-    elsif tag contains 'template-9'
+      assign product_template9 = false
+      assign product_template10 = false
+    elsif tag contains 'page-9-pajamas'
+      assign product_template2 = false
+      assign product_template3 = false
+      assign product_template4 = false
+      assign product_template5 = false
+      assign product_template6 = false
+      assign product_template7 = false
+      assign product_template8 = false
       assign product_template9 = true
-    elsif tag contains 'template-10'
+      assign product_template10 = false
+    elsif tag contains 'page-10-tights'
+      assign product_template2 = false
+      assign product_template3 = false
+      assign product_template4 = false
+      assign product_template5 = false
+      assign product_template6 = false
+      assign product_template7 = false
+      assign product_template8 = false
+      assign product_template9 = false
       assign product_template10 = true
     endif
   endfor
