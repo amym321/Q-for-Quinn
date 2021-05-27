@@ -1,3 +1,4 @@
+{% section 'product-template' %}
 {% comment %} code change - am. loads one of many product templates based on tag.  
 previously loaded section 'product-template' only  {% endcomment %}
 {%- liquid
@@ -36,64 +37,31 @@ previously loaded section 'product-template' only  {% endcomment %}
   endfor
 
 if product_template2 == true
-  section 'product-template-2'
   section 'product-story-sections-2'
-  section 'product-recommendations-2'
-  section 'recently-viewed-2'
 elsif product_template3 == true
-  section 'product-template-3'
   section 'product-story-sections-3'
-  section 'product-recommendations-3'
-  section 'recently-viewed-3'
 elsif product_template4 == true
-  section 'product-template-4'
   section 'product-story-sections-4'
-  section 'product-recommendations-4'
-  section 'recently-viewed-4'
 elsif product_template5 == true
-  section 'product-template-5'
   section 'product-story-sections-5'
-  section 'product-recommendations-5'
-  section 'recently-viewed-5'
 elsif product_template6 == true
-  section 'product-template-6'
   section 'product-story-sections-6'
-  section 'product-recommendations-6'
-  section 'recently-viewed-6'
 elsif product_template7 == true
-  section 'product-template-7'
   section 'product-story-sections-7'
-  section 'product-recommendations-7'
-  section 'recently-viewed-7'
-  elsif product_template8 == true
-  section 'product-template-8'
+elsif product_template8 == true
   section 'product-story-sections-8'
-  section 'product-recommendations-8'
-  section 'recently-viewed-8'
 elsif product_template9 == true
-  section 'product-template-9'
   section 'product-story-sections-9'
-  section 'product-recommendations-9'
-  section 'recently-viewed-9'
 elsif product_template10 == true
-  section 'product-template-10'
   section 'product-story-sections-10'
-  section 'product-recommendations-10'
-  section 'recently-viewed-10'
 else
-  section 'product-template'
   section 'product-story-sections'
-  section 'product-recommendations'
-  section 'recently-viewed'
 endif
 -%}
-{% comment %} previouus code that was removed {% endcomment %} 
-{% comment %} 
-{% section 'product-template' %}
+{% comment %} end of code change - am {% endcomment %} 
+
 {% section 'product-recommendations' %}
 {% section 'recently-viewed' %}
-{% endcomment %} 
-{% comment %} end code change - AM {% endcomment %}
 
 {% if collection %}
   <div class="text-center page-content page-content--bottom">
